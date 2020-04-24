@@ -9,8 +9,8 @@ class EmbeddingsBert(Module):
 
     def __init__(self, bert_path: str):
         super().__init__()
-        from pytorch_pretrained_bert import BertModel, BertTokenizer
-        self.bert_embeddings = BertModel.from_pretrained(bert_path)
+        from transformers import BertModel, BertTokenizer
+        self.bert_embeddings = BertModel.from_pretrained(bert_path, output_hidden_states=False)
         self.bert_tokenizer = BertTokenizer.from_pretrained(bert_path, do_lower_case=False)
         for param in self.bert_embeddings.parameters():
             param.requires_grad = False
@@ -66,7 +66,7 @@ class EmbeddingsBert(Module):
         pad_mask = [torch_ones_like(x) for x in inputs]
         pad_mask = pad_sequence(pad_mask, batch_first=True, padding_value=0)
         inputs = pad_sequence(inputs, batch_first=True, padding_value=0)
-        inputs, _ = self.bert_embeddings(inputs, attention_mask=pad_mask, output_all_encoded_layers=False)
+        inputs, _ = self.bert_embeddings(inputs, attention_mask=pad_mask)
         return inputs, pad_mask, token_indices
 
     def get_output_dim(self):
