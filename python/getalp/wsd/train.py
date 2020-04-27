@@ -9,7 +9,7 @@ def main():
     parser.add_argument('--data_path', required=True, type=str, help=" ")
     parser.add_argument('--model_path', required=True, type=str, help=" ")
     parser.add_argument('--batch_size', nargs="?", type=int, default=80, help=" ")
-    parser.add_argument('--token_per_batch', nargs="?", type=int, default=8000, help=" ")
+    parser.add_argument('--token_per_batch', nargs="?", type=int, default=6400, help=" ")
     parser.add_argument('--ensemble_count', nargs="?", type=int, default=8, help=" ")
     parser.add_argument('--epoch_count', nargs="?", type=int, default=40, help=" ")
     parser.add_argument('--eval_frequency', nargs="?", type=int, default=4000, help=" ")
